@@ -36,6 +36,15 @@ const currentPageReducer = (state = 1, action) => {
   }
 };
 
+const itemsPerPageReducer = (state = 5, action) => {
+  switch (action.type) {
+    case 'SET_CURRENT_ITEMS_PER_PAGE':
+      return action.itemsPerPage;
+    default:
+      return state;
+  }
+};
+
 const filterReducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_FILTER':
@@ -61,6 +70,7 @@ const rootReducer = combineReducers({
   filter: filterReducer,
   error: errorReducer,
   selectedProduct: selectedProductReducer,
+  itemsPerPage: itemsPerPageReducer
 });
 
 export default rootReducer;

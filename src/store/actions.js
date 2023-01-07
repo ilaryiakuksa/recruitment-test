@@ -15,16 +15,21 @@ export const setFilter = (filter) => ({
   filter,
 });
 
+export const setItemsPerPage = (itemsPerPage) => ({
+  type: 'SET_CURRENT_ITEMS_PER_PAGE',
+  itemsPerPage,
+});
+
 export const setSelected = (selectedProduct) => ({
   type: 'SET_SELECTED',
   selectedProduct,
 });
 
-export const fetchProducts = (page, filter) => async (dispatch) => {
+export const fetchProducts = (page, filter,itemsPerPage = 5) => async (dispatch) => {
   try {
     const response = await axios.get('https://reqres.in/api/products', {
       params: {
-        per_page: 5,
+        per_page: itemsPerPage,
         page,
         id: filter,
       },

@@ -10,7 +10,7 @@ import { ProductsTable } from './components/Table';
 import './App.css';
 
 import {
-  fetchProducts, setCurrentPage, setFilter, setError, setSelected,
+  fetchProducts, setCurrentPage, setFilter, setError, setSelected,setItemsPerPage
 } from './store/actions';
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
   const currentPage = useSelector((state) => state.currentPage);
   const filter = useSelector((state) => state.filter);
   const error = useSelector((state) => state.error);
+  const itemsPerPage = useSelector((state) => state.itemsPerPage);
   const selectedProduct = useSelector((state) => state.selectedProduct);
 
   const dispatch = useDispatch();
@@ -36,12 +37,17 @@ function App() {
     const id = params.get('id') || '';
     dispatch(setFilter(id));
     dispatch(setCurrentPage(parseInt(page, 10)));
-    dispatch(fetchProducts(parseInt(page, 10), id));
-  }, [currentPage, filter, location.search, dispatch]);
+    dispatch(fetchProducts(parseInt(page, 10), id, itemsPerPage));
+  }, [currentPage, filter, location.search, dispatch, itemsPerPage]);
 
   const handleFilterChange = (event) => {
     dispatch(setFilter(event.target.value));
     history(`${location.pathname}?id=${event.target.value}`);
+  };
+
+  const handleItemsPerPageChange = (event) => {
+    dispatch(setItemsPerPage(event.target.value));
+    history(`${location.pathname}?itemsPerPage=${event.target.value}`);
   };
 
   const handlePageChange = (event, value) => {
@@ -63,6 +69,7 @@ function App() {
   return (
     <div>
       <TextField label="Filter by ID" placeholder="Filter by ID" type="number" value={filter} onChange={handleFilterChange} />
+      <TextField label="ItemsPerPage" placeholder="Items per page" type="number" value={itemsPerPage} onChange={handleItemsPerPageChange} />
       {products.length
         ? (
           <ProductsTable
