@@ -35,9 +35,10 @@ function App() {
     const params = new URLSearchParams(location.search);
     const page = params.get('page') || '1';
     const id = params.get('id') || '';
+    const itemsPerPage = params.get('itemsPerPage') || '5';
     dispatch(setFilter(id));
     dispatch(setCurrentPage(parseInt(page, 10)));
-    dispatch(fetchProducts(parseInt(page, 10), id, itemsPerPage));
+    dispatch(fetchProducts(parseInt(page, 10), id, parseInt(itemsPerPage, 10)));
   }, [currentPage, filter, location.search, dispatch, itemsPerPage]);
 
   const handleFilterChange = (event) => {
