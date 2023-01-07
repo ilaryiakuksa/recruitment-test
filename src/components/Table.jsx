@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, TableRow, TableCell, TableBody, TableHead } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 
+// eslint-disable-next-line react/prop-types
 export const ProductsTable = ({products = [], currentPage, totalPages = 1, onRowClick, onPageChange}) => {
 
   const handlePageChange = (event, value) => {

@@ -61,7 +61,6 @@ function App() {
   const sorryMessage = <p>Sorry there are not available colors with that index</p>;
 
   return (
-
     <div>
       <TextField label="Filter by ID" placeholder="Filter by ID" type="number" value={filter} onChange={handleFilterChange} />
       {products.length
